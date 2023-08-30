@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+import { ref } from 'vue';
+
 const property = defineProps<{
     id: number,
     lable: string,
@@ -7,15 +9,26 @@ const property = defineProps<{
     onDelete: () => void
 }>();
 
+const isDone = ref(false);
+
+const changeStatus = () => {
+    isDone.value = !isDone.value;
+};
+
 </script>
 
 <template>
     <div class="task">
-        <button type="button" class="mark-btn">
-            <img src="../assets/tick-svgrepo-com.svg" alt="Change status">
+        <button type="button" class="mark-btn" @click="changeStatus()">
+            <div v-if="isDone">
+                <img src="../assets/double-check-svgrepo-com.svg" alt="Change status">
+            </div>
+            <div v-else>
+                <img src="../assets/tick-svgrepo-com.svg" alt="Change status">
+            </div>
         </button>
-        <div class="task-lable">{{ property.lable }}</div>
-        <button type="button" class="delete-btn" @click="onDelete()">
+        <div class="task-lable" v-bind:class="{ 'line-through': isDone }">{{ property.lable }}</div>
+        <button type="button" class="delete-btn" @click="() => { onDelete(); isDone = false; }">
             <img src="../assets/delete.svg" alt="Delete">
         </button>
     </div>
@@ -36,5 +49,10 @@ const property = defineProps<{
 
 .task-lable {
     font-size: var(--FS-XL);
+}
+
+.line-through {
+    text-decoration: line-through;
+    color: #505050;
 }
 </style>

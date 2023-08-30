@@ -13,7 +13,7 @@ const taskName = ref('');
     <span class="app-top-name">Todo APP</span>
     <div class="app-top-add-task-container">
         <input v-model="taskName" type="text" class="add-task-name" placeholder="Enter new task..." />
-        <button type="button" class="add-btn" @click="onClickEvent.addTask(taskName)">
+        <button :disabled="taskName.length === 0" type="button" class="add-btn" @click="onClickEvent.addTask(taskName)">
             <img src="../assets/plus.svg" alt="">
         </button>
     </div>
