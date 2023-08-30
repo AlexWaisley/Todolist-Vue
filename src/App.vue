@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import TopVue from './components/Top.vue';
+import MainVue from './components/Main.vue';
+import Bottom from './components/Bottom.vue';
+
+
 const taskList = ref(["New task"]);
 
 taskList.value.push("New task1");
@@ -8,41 +13,36 @@ taskList.value.push("New task2");
 taskList.value.push("New task3");
 taskList.value.push("New task4");
 
+const deleteTask = (id: number) => {
+    taskList.value = taskList.value.filter((item, index) => index !== id);
+};
+
+const clearAllTasks = () => {
+    taskList.value = [];
+};
+
+const AddTask = (name: string) => {
+    taskList.value.push(name);
+};
+
 </script>
 
 <template>
     <div class="app-container">
         <header class="app-top">
-            <span class="app-top-name">Todo APP</span>
-            <div class="app-top-add-task-container">
-                <input type="text" class="add-task-name" placeholder="Enter new task..."/>
-                <button type="button" class="add-btn">
-                    <img src="./assets/plus.svg" alt="">
-                </button>
-            </div>
+            <TopVue :addTask="(newName: string) => AddTask(newName)" />
         </header>
         <main class="app-main">
-            <div class="task" v-for="task in taskList">
-            <button type="button" class="mark-btn">
-                <img src="./assets/tick-svgrepo-com.svg" alt="Change status">
-            </button>
-            <div class="task-lable">{{task}}</div>
-            <button type="button" class="delete-btn">
-                <img src="./assets/delete.svg" alt="Delete">
-            </button>
-            </div>
+            <MainVue :list="taskList" :remove-task="(id: number) => deleteTask(id)" />
         </main>
         <footer class="app-bottom">
-            <div class="tasks-count">
-                <span class="tasks-count-text">{{ taskList.length }} Task{{ taskList.length !== 1 ? "s":"" }} remaining</span>
-            </div>
-            <button type="button" class="tasks-clear-btn">Clear all</button>
+            <Bottom :count="taskList.length" :clear-all-task="clearAllTasks"></Bottom>
         </footer>
-</div>
+    </div>
 </template>
 
 <style scoped>
-.app-container{
+.app-container {
     width: 600px;
     height: 850px;
     border-radius: 45px;
@@ -53,22 +53,25 @@ taskList.value.push("New task4");
     place-content: center;
 }
 
-.app-top{
+.app-top {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.app-top-name{
+
+.app-top-name {
     font-size: var(--FS-XL);
 }
-.app-top-add-task-container{
+
+.app-top-add-task-container {
     display: flex;
     gap: 10px;
     justify-content: center;
     align-items: center;
 }
-.add-btn{
+
+.add-btn {
     width: 100px;
     height: 100px;
     display: grid;
@@ -77,11 +80,13 @@ taskList.value.push("New task4");
     background-color: var(--BTN-BG-COLOR);
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
-.add-btn:hover{
+
+.add-btn:hover {
     cursor: pointer;
     background-color: var(--BTN-BG-COLOR-HOVER);
 }
-.add-task-name{
+
+.add-task-name {
     height: 100px;
     width: 320px;
     font-size: var(--FS-XL);
@@ -90,32 +95,13 @@ taskList.value.push("New task4");
     padding: 0 10px 0 10px;
 }
 
-.app-bottom{
+.app-bottom {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.tasks-count-text{
-    font-size: var(--FS-XL);
-}
-
-.tasks-clear-btn{
-    width: 200px;
-    height: 100px;
-    font-size: var(--FS-XL);
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
-    display: grid;
-    place-content: center;
-    border-radius: 5px;
-    background-color: var(--BTN-CLEAR-ALL-COLOR);
-}
-.tasks-clear-btn:hover{
-    cursor: pointer;
-    background-color: var(--BTN-CLEAR-ALL-COLOR-HOVER);
-}
-
-.app-main{
+.app-main {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -123,21 +109,4 @@ taskList.value.push("New task4");
     gap: 15px;
     width: 500px;
 }
-
-.task{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--BG-TASK-COLOR);
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
-    padding: 5px;
-    border-radius: 5px;
-    min-height: 100px;
-    width: 95%;
-}
-
-.task-lable{
-    font-size: var(--FS-XL);
-}
-
 </style>

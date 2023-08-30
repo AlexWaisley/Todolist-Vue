@@ -1,0 +1,64 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const onClickEvent = defineProps<{
+    addTask: (newName: string) => void;
+}>();
+
+const taskName = ref('');
+
+</script>
+
+<template>
+    <span class="app-top-name">Todo APP</span>
+    <div class="app-top-add-task-container">
+        <input v-model="taskName" type="text" class="add-task-name" placeholder="Enter new task..." />
+        <button type="button" class="add-btn" @click="onClickEvent.addTask(taskName)">
+            <img src="../assets/plus.svg" alt="">
+        </button>
+    </div>
+</template>
+
+<style>
+.app-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-top-name {
+    font-size: var(--FS-XL);
+}
+
+.app-top-add-task-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-btn {
+    width: 100px;
+    height: 100px;
+    display: grid;
+    border-radius: 5px;
+    place-content: center;
+    background-color: var(--BTN-BG-COLOR);
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.add-btn:hover {
+    cursor: pointer;
+    background-color: var(--BTN-BG-COLOR-HOVER);
+}
+
+.add-task-name {
+    height: 100px;
+    width: 320px;
+    font-size: var(--FS-XL);
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+    padding: 0 10px 0 10px;
+}
+</style>
