@@ -2,8 +2,9 @@
 
 const property = defineProps<{
     count: Number,
-    clearAllTask: () => void
 }>();
+
+const emits = defineEmits(['clearAllTasks']);
 
 </script>
 
@@ -11,7 +12,7 @@ const property = defineProps<{
     <div class="tasks-count">
         <span class="tasks-count-text">{{ property.count }} Task{{ property.count !== 1 ? "s" : "" }} remaining</span>
     </div>
-    <button type="button" class="tasks-clear-btn" @click="property.clearAllTask">Clear all</button>
+    <button type="button" class="tasks-clear-btn" @click="emits('clearAllTasks')">Clear all</button>
 </template>
 
 <style>

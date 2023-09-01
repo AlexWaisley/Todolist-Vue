@@ -5,38 +5,59 @@ import TopVue from './components/Top.vue';
 import MainVue from './components/Main.vue';
 import Bottom from './components/Bottom.vue';
 
+const taskList = ref(['']);
 
-const taskList = ref(["New task"]);
+taskList.value.pop();
 
-taskList.value.push("New task1");
-taskList.value.push("New task2");
-taskList.value.push("New task3");
-taskList.value.push("New task4");
+const loadFromStorage = () => {
+    const arrayString = localStorage.getItem("taskList");
+    if (arrayString) {
+        taskList.value = JSON.parse(arrayString);
+    }
+}
+
+loadFromStorage();
+
+window.addEventListener('storage', loadFromStorage);
 
 const deleteTask = (id: number) => {
     taskList.value = taskList.value.filter((item, index) => index !== id);
+    saveToStorage();
 };
 
 const clearAllTasks = () => {
     taskList.value = [];
+    saveToStorage();
 };
 
 const AddTask = (name: string) => {
     taskList.value.push(name);
+    saveToStorage();
 };
+
+const changeName = (newName: string, id: number) => {
+    console.log(newName);
+    taskList.value[id] = newName;
+    console.log(taskList.value);
+    saveToStorage();
+}
+
+const saveToStorage = () => {
+    localStorage.setItem("taskList", JSON.stringify(taskList.value));
+}
 
 </script>
 
 <template>
     <div class="app-container">
         <header class="app-top">
-            <TopVue :addTask="(newName: string) => AddTask(newName)" />
+            <TopVue @addNewTask="AddTask" />
         </header>
         <main class="app-main">
-            <MainVue :list="taskList" :remove-task="(id: number) => deleteTask(id)" />
+            <MainVue :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName" />
         </main>
         <footer class="app-bottom">
-            <Bottom :count="taskList.length" :clear-all-task="clearAllTasks"></Bottom>
+            <Bottom :count="taskList.length" @clearAllTasks="clearAllTasks()"></Bottom>
         </footer>
     </div>
 </template>

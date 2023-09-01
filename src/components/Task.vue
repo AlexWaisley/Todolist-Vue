@@ -1,34 +1,49 @@
 <script setup lang="ts">
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const property = defineProps<{
     id: number,
     lable: string,
-    onTaskNameChange: (name: string) => void,
-    onDelete: () => void
 }>();
 
 const isDone = ref(false);
+const isEdit = ref(false);
+const lable = ref(property.lable);
+
 
 const changeStatus = () => {
     isDone.value = !isDone.value;
 };
+
+const emits = defineEmits(['changeTaskName', 'removeTask']);
+
+watch(property, () => {
+    lable.value = property.lable;
+});
 
 </script>
 
 <template>
     <div class="task">
         <button type="button" class="mark-btn" @click="changeStatus()">
-            <div v-if="isDone">
-                <img src="../assets/double-check-svgrepo-com.svg" alt="Change status">
+            <div v-if="isEdit">
+                <img src="../assets/icons8-edit.svg" alt="Change status">
             </div>
             <div v-else>
-                <img src="../assets/tick-svgrepo-com.svg" alt="Change status">
+                <div v-if="isDone">
+                    <img src="../assets/double-check-svgrepo-com.svg" alt="Change status">
+                </div>
+                <div v-else>
+                    <img src="../assets/tick-svgrepo-com.svg" alt="Change status">
+                </div>
             </div>
         </button>
-        <div class="task-lable" v-bind:class="{ 'line-through': isDone }">{{ property.lable }}</div>
-        <button type="button" class="delete-btn" @click="() => { onDelete(); isDone = false; }">
+        <input class="task-lable" @focus="isEdit = true;"
+            @blur="emits('changeTaskName', lable, property.id); isEdit = false;" v-bind:class="{ 'line-through': isDone }"
+            v-model="lable" />
+
+        <button type="button" class="delete-btn" @click="() => emits('removeTask', property.id)">
             <img src="../assets/delete.svg" alt="Delete">
         </button>
     </div>
@@ -48,7 +63,14 @@ const changeStatus = () => {
 }
 
 .task-lable {
+    border: 0;
+    background-color: var(--BG-TASK-COLOR);
     font-size: var(--FS-XL);
+    display: grid;
+    place-content: center;
+    text-align: center;
+    width: 40%;
+
 }
 
 .line-through {

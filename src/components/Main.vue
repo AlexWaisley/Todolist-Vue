@@ -1,25 +1,21 @@
 <script setup lang="ts">
 import task from './Task.vue';
+import { watch } from 'vue';
 
-const property = defineProps<{
-    list: string[],
-    removeTask: (id: number) => void
-}>();
+const property = defineProps(['list']);
 
-const deleteTask = (id: number) => {
-    property.removeTask(id);
-};
+const emits = defineEmits(['changeName', 'deleteTask']);
 
-const changeTaskName = (newName: string, index: number) => {
-    property.list[index] = newName;
-};
-
+watch(property.list, () => {
+    console.log(property.list);
+});
 
 </script>
 
 <template>
-    <task class="task" v-for="(item, index) in property.list" :id="index" :lable="item"
-        :onTaskNameChange="(newName: string) => changeTaskName(newName, index)" :onDelete="() => deleteTask(index)">
+    <task class="task" v-for="(item, index) in   property.list" :id="index" :lable="item"
+        @changeTaskName="(newName, id) => emits('changeName', newName, id)"
+        @remove-task="(id) => { emits('deleteTask', id); }">
     </task>
 </template>
 
