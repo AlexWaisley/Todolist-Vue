@@ -16,12 +16,6 @@ const emits = defineEmits(['clearAllTasks']);
 </template>
 
 <style>
-.app-bottom {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .tasks-count-text {
     font-size: var(--FS-XL);
 }

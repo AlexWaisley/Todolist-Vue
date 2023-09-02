@@ -19,13 +19,6 @@ const emits = defineEmits(['addNewTask']);
 </template>
 
 <style>
-.app-top {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .app-top-name {
     font-size: var(--FS-XL);
 }
@@ -38,8 +31,8 @@ const emits = defineEmits(['addNewTask']);
 }
 
 .add-btn {
-    width: 100px;
-    height: 100px;
+    width: var(--BTN-STNDRT-SIZE);
+    height: var(--BTN-STNDRT-SIZE);
     display: grid;
     border-radius: 5px;
     place-content: center;
@@ -54,7 +47,7 @@ const emits = defineEmits(['addNewTask']);
 
 .add-task-name {
     height: 100px;
-    width: 320px;
+    width: var(--INPUT-WIDTH);
     font-size: var(--FS-XL);
     border-radius: 5px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);

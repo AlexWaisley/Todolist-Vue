@@ -5,7 +5,7 @@ import TopVue from './components/Top.vue';
 import MainVue from './components/Main.vue';
 import Bottom from './components/Bottom.vue';
 
-const taskList = ref(['']);
+const taskList = ref([{ name: '', isDone: false }]);
 
 taskList.value.pop();
 
@@ -31,14 +31,18 @@ const clearAllTasks = () => {
 };
 
 const AddTask = (name: string) => {
-    taskList.value.push(name);
+    const isDone = false
+    taskList.value.push({ name, isDone });
     saveToStorage();
 };
 
 const changeName = (newName: string, id: number) => {
-    console.log(newName);
-    taskList.value[id] = newName;
-    console.log(taskList.value);
+    taskList.value[id].name = newName;
+    saveToStorage();
+}
+
+const changeStatus = (id: number) => {
+    taskList.value[id].isDone = !taskList.value[id].isDone;
     saveToStorage();
 }
 
@@ -54,7 +58,8 @@ const saveToStorage = () => {
             <TopVue @addNewTask="AddTask" />
         </header>
         <main class="app-main">
-            <MainVue :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName" />
+            <MainVue :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName"
+                @changeStatus="changeStatus" />
         </main>
         <footer class="app-bottom">
             <Bottom :count="taskList.length" @clearAllTasks="clearAllTasks()"></Bottom>
@@ -64,14 +69,22 @@ const saveToStorage = () => {
 
 <style scoped>
 .app-container {
-    width: 600px;
-    height: 850px;
+    margin-top: 5px;
+    min-width: var(--APP-WIDTH);
+    min-height: var(--APP-HEIGHT);
+    max-width: 600px;
+    width: 20vw;
+    height: 80vh;
     border-radius: 45px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
     background-color: var(--BG-COLOR);
-    display: grid;
-    grid-template-rows: 25% 55% 20%;
-    place-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    margin-bottom: 10px;
 }
 
 .app-top {
@@ -81,45 +94,12 @@ const saveToStorage = () => {
     align-items: center;
 }
 
-.app-top-name {
-    font-size: var(--FS-XL);
-}
-
-.app-top-add-task-container {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-
-.add-btn {
-    width: 100px;
-    height: 100px;
-    display: grid;
-    border-radius: 5px;
-    place-content: center;
-    background-color: var(--BTN-BG-COLOR);
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
-}
-
-.add-btn:hover {
-    cursor: pointer;
-    background-color: var(--BTN-BG-COLOR-HOVER);
-}
-
-.add-task-name {
-    height: 100px;
-    width: 320px;
-    font-size: var(--FS-XL);
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
-    padding: 0 10px 0 10px;
-}
-
 .app-bottom {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    gap: 10px;
+    width: 90%;
 }
 
 .app-main {
@@ -128,6 +108,8 @@ const saveToStorage = () => {
     overflow-y: auto;
     align-items: center;
     gap: 15px;
-    width: 500px;
+    min-width: 360px;
+    height: 100%;
+    min-height: 115px;
 }
 </style>
