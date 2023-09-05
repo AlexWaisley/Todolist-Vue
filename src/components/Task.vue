@@ -16,7 +16,6 @@ const emits = defineEmits(['changeTaskName', 'changeTaskStatus', 'removeTask']);
 watch(property, () => {
     lable.value = property.lable;
 });
-
 </script>
 
 <template>
@@ -53,8 +52,17 @@ watch(property, () => {
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
     padding: 5px;
     border-radius: 5px;
-    min-height: 100px;
+    height: 60px;
     width: 95%;
+}
+
+button {
+    height: 95%;
+    aspect-ratio: 1/1;
+}
+
+button>img {
+    height: 90%;
 }
 
 .task-lable {
@@ -65,7 +73,6 @@ watch(property, () => {
     place-content: center;
     text-align: center;
     width: 40%;
-
 }
 
 .line-through {

@@ -10,7 +10,7 @@ const emits = defineEmits(['addNewTask']);
 <template>
     <span class="app-top-name">Todo APP</span>
     <div class="app-top-add-task-container">
-        <input v-model="taskName" type="text" class="add-task-name" placeholder="Enter new task..." />
+        <input v-model="taskName" type="text" class="add-task-name" placeholder="Enter new task" />
         <button :disabled="taskName.length === 0" type="button" class="add-btn"
             @click="emits('addNewTask', taskName); taskName = ''">
             <img src="../assets/plus.svg" alt="">
@@ -20,7 +20,7 @@ const emits = defineEmits(['addNewTask']);
 
 <style>
 .app-top-name {
-    font-size: var(--FS-XL);
+    font-size: var(--FS-XXL);
 }
 
 .app-top-add-task-container {
@@ -33,11 +33,16 @@ const emits = defineEmits(['addNewTask']);
 .add-btn {
     width: var(--BTN-STNDRT-SIZE);
     height: var(--BTN-STNDRT-SIZE);
-    display: grid;
+    display: flex;
     border-radius: 5px;
-    place-content: center;
+    align-items: center;
+    justify-content: center;
     background-color: var(--BTN-BG-COLOR);
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.add-btn>img {
+    width: 80%;
 }
 
 .add-btn:hover {
@@ -46,7 +51,7 @@ const emits = defineEmits(['addNewTask']);
 }
 
 .add-task-name {
-    height: 100px;
+    height: 60px;
     width: var(--INPUT-WIDTH);
     font-size: var(--FS-XL);
     border-radius: 5px;

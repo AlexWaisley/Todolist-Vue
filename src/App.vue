@@ -75,7 +75,7 @@ const saveToStorage = () => {
     max-width: 600px;
     width: 20vw;
     height: 80vh;
-    border-radius: 45px;
+    border-radius: 20px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
     background-color: var(--BG-COLOR);
     display: flex;
@@ -83,7 +83,7 @@ const saveToStorage = () => {
     justify-content: space-between;
     align-items: center;
     gap: 15px;
-    padding: 20px;
+    padding: 20px 0 20px 0;
     margin-bottom: 10px;
 }
 
@@ -96,7 +96,7 @@ const saveToStorage = () => {
 
 .app-bottom {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
     width: 90%;

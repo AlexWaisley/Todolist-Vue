@@ -14,19 +14,20 @@
   --FS-M: 1rem;
   --FS-L: 1.5rem;
   --FS-XL: 2rem;
+  --FS-XXL: 3rem;
 
   /*Size*/
   --APP-WIDTH:600px;
   --APP-HEIGHT:390px;
-  --BTN-STNDRT-SIZE:100px;
-  --INPUT-WIDTH:320px;
+  --BTN-STNDRT-SIZE:60px;
+  --INPUT-WIDTH:350px;
 }
 
 
 @media screen and (min-width: 768px) {
   :root {
     --APP-WIDTH:500px;
-    --INPUT-WIDTH:320px;
+    --INPUT-WIDTH:370px;
   }
 }
 

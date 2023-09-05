@@ -10,19 +10,19 @@ const emits = defineEmits(['clearAllTasks']);
 
 <template>
     <div class="tasks-count">
-        <span class="tasks-count-text">{{ property.count }} Task{{ property.count !== 1 ? "s" : "" }} remaining</span>
+        <span class="tasks-count-text">Remaining: {{ property.count }}</span>
     </div>
     <button type="button" class="tasks-clear-btn" @click="emits('clearAllTasks')">Clear all</button>
 </template>
 
 <style>
 .tasks-count-text {
-    font-size: var(--FS-XL);
+    font-size: var(--FS-L);
 }
 
 .tasks-clear-btn {
-    width: 200px;
-    height: 100px;
+    width: 150px;
+    height: 60px;
     font-size: var(--FS-XL);
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
     display: grid;
