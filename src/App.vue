@@ -59,7 +59,7 @@ const saveToStorage = () => {
         <TodolistHeader @addNewTask="AddTask" />
         <TodolistContent :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName"
             @changeStatus="changeStatus" />
-        <!-- <TodolistFooter class="todolist-footer" :count="taskList.length" @clearAllTasks="clearAllTasks()" /> -->
+        <TodolistFooter class="todolist-footer" :count="taskList.length" @clearAllTasks="clearAllTasks()" />
     </div>
 </template>
 

@@ -24,8 +24,10 @@ watch(property.list, () => { });
 .todolist-content {
     width: 100%;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     gap: 1rem;
     overflow-y: auto;
+    padding: .5rem 0;
 }
 </style>

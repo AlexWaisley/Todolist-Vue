@@ -9,29 +9,41 @@ const emits = defineEmits(['clearAllTasks']);
 </script>
 
 <template>
-    <div class="tasks-count">
-        <span class="tasks-count-text">Remaining: {{ property.count }}</span>
+    <div class="todolist-footer">
+        <div class="tasks-count">
+            <span class="tasks-count-text">Remaining: {{ property.count }}</span>
+        </div>
+        <button type="button" class="clear-tasks-button" @click="emits('clearAllTasks')">Clear all</button>
     </div>
-    <button type="button" class="tasks-clear-btn" @click="emits('clearAllTasks')">Clear all</button>
 </template>
 
 <style>
+.todolist-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
 .tasks-count-text {
     font-size: var(--FS-L);
 }
 
-.tasks-clear-btn {
-    width: 150px;
-    height: 60px;
+.clear-tasks-button {
+    outline: none;
+    border: 0;
+    padding: .5rem;
+    height: 100%;
     font-size: var(--FS-XL);
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
     display: grid;
     place-content: center;
     border-radius: 5px;
     background-color: var(--BTN-CLEAR-ALL-COLOR);
+    transition: background-color .2s;
 }
 
-.tasks-clear-btn:hover {
+.clear-tasks-button:hover {
     cursor: pointer;
     background-color: var(--BTN-CLEAR-ALL-COLOR-HOVER);
 }

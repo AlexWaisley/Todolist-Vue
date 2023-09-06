@@ -41,7 +41,7 @@ watch(property, () => {
 
 <style>
 .task {
-    width: 100%;
+    max-width: 100%;
     display: flex;
     justify-content: space-between;
     height: 3rem;
@@ -49,9 +49,11 @@ watch(property, () => {
 }
 
 .task-input {
+    max-width: 15rem;
     outline: none;
     border: 1px solid transparent;
     background-color: var(--BG-COLOR);
+    font-size: var(--FS-L);
     transition: border .2s;
     padding: 0 .5rem;
     display: flex;
