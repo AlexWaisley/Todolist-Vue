@@ -20,8 +20,49 @@ html, body, #app{
 #app{
   background-image: url('background.jpg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size:cover;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.default-input {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+  font-size: var(--FS-L);
+  outline: none;
+  border: 1px dashed transparent;
+  transition: border .5s;
+  padding: 0 .5rem;
+}
+
+.default-input:focus {
+  border: 1px dashed #000;
+}
+
+.default-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border-radius: 3px;
+
+  >img {
+      max-width: 80%;
+      max-height: 80%;
+  }
+}
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 1/1;
+
+  >img {
+      max-width: 80%;
+      max-height: 80%;
+  }
 }

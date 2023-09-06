@@ -57,9 +57,9 @@ const saveToStorage = () => {
 <template>
     <div class="todolist-container">
         <TodolistHeader @addNewTask="AddTask" />
-        <!-- <TodolistContent :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName"
+        <TodolistContent :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName"
             @changeStatus="changeStatus" />
-        <TodolistFooter class="todolist-footer" :count="taskList.length" @clearAllTasks="clearAllTasks()" /> -->
+        <!-- <TodolistFooter class="todolist-footer" :count="taskList.length" @clearAllTasks="clearAllTasks()" /> -->
     </div>
 </template>
 
@@ -70,5 +70,8 @@ const saveToStorage = () => {
     height: min(90%, 30rem);
     padding: 1rem;
     border-radius: 10px;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
 }
 </style>

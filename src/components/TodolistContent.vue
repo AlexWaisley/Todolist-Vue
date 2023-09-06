@@ -20,4 +20,12 @@ watch(property.list, () => { });
     </div>
 </template>
 
-<style></style>
+<style>
+.todolist-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+</style>

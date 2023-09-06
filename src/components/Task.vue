@@ -15,64 +15,52 @@ const emits = defineEmits(['changeTaskName', 'changeTaskStatus', 'removeTask']);
 
 watch(property, () => {
     lable.value = property.lable;
+
 });
+
+
+
 </script>
 
 <template>
     <div class="task">
-        <button type="button" class="mark-btn" @click="emits('changeTaskStatus', property.id)">
-            <div v-if="isEdit">
-                <img src="../assets/icons8-edit.svg" alt="Change status">
-            </div>
-            <div v-else>
-                <div v-if="property.status">
-                    <img src="../assets/double-check-svgrepo-com.svg" alt="Change status">
-                </div>
-                <div v-else>
-                    <img src="../assets/tick-svgrepo-com.svg" alt="Change status">
-                </div>
-            </div>
+        <button type="button" class="default-button" @click="emits('changeTaskStatus', property.id)">
+            <img v-if="isEdit" src="edit.svg" alt="Change status" />
+            <img v-else-if="property.status" src="done.svg" alt="Change status" />
+            <img v-else src="notDone.svg" alt="Change status" />
         </button>
-        <input class="task-lable" @focus="isEdit = true;" :disabled="status"
-            @blur="emits('changeTaskName', lable, property.id); isEdit = false;"
-            v-bind:class="{ 'line-through': property.status }" v-model="lable" />
+        <input class="task-input" @focus="isEdit = true;" :disabled="status"
+            @blur="emits('changeTaskName', lable, property.id); isEdit = false;" :class="{ 'line-through': status }"
+            v-model="lable" />
 
-        <button type="button" class="delete-btn" @click="() => { emits('removeTask', property.id); }">
-            <img src="../assets/delete.svg" alt="Delete">
+        <button type="button" class="default-button" @click="() => { emits('removeTask', property.id); }">
+            <img src="delete.svg" alt="Delete">
         </button>
     </div>
 </template>
 
 <style>
 .task {
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: var(--BG-TASK-COLOR);
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
-    padding: 5px;
-    border-radius: 5px;
-    height: 60px;
-    width: 95%;
+    height: 3rem;
+    gap: 1rem;
 }
 
-button {
-    height: 95%;
-    aspect-ratio: 1/1;
-}
-
-button>img {
-    height: 90%;
-}
-
-.task-lable {
-    border: 0;
-    background-color: var(--BG-TASK-COLOR);
-    font-size: var(--FS-XL);
-    display: grid;
-    place-content: center;
+.task-input {
+    outline: none;
+    border: 1px solid transparent;
+    background-color: var(--BG-COLOR);
+    transition: border .2s;
+    padding: 0 .5rem;
+    display: flex;
+    flex-grow: 1;
     text-align: center;
-    width: 40%;
+}
+
+.task-input:focus {
+    border: 1px solid #000;
 }
 
 .line-through {
