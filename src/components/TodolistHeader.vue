@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const taskName = ref('');
+const newTaskName = ref('');
 
-const emits = defineEmits(['addNewTask']);
+const emits = defineEmits(['addNewTaskEvent']);
 
 </script>
 
@@ -11,9 +11,9 @@ const emits = defineEmits(['addNewTask']);
     <div class="todolist-header">
         <span class="todolist-title">Todo APP</span>
         <div class="todolist-input">
-            <input v-model="taskName" type="text" class="default-input" placeholder="Enter new task" />
-            <button :disabled="taskName.length === 0" type="button" class="default-button"
-                @click="emits('addNewTask', taskName); taskName = ''">
+            <input v-model="newTaskName" type="text" class="default-input" placeholder="Enter new task" />
+            <button :disabled="newTaskName.length === 0" type="button" class="default-button"
+                @click="emits('addNewTaskEvent', newTaskName); newTaskName = ''">
                 <img src="plus.svg" alt="plus image">
             </button>
         </div>

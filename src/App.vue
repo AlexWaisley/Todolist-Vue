@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import TodolistHeader from './components/TodolistHeader.vue';
 import TodolistContent from './components/TodolistContent.vue';
@@ -18,9 +18,11 @@ const loadFromStorage = () => {
     }
 }
 
-loadFromStorage();
+const saveToStorage = () => {
+    localStorage.setItem("taskList", JSON.stringify(taskList.value));
+}
 
-window.addEventListener('storage', loadFromStorage);
+onMounted(() => loadFromStorage());
 
 const deleteTask = (id: number) => {
     taskList.value = taskList.value.filter((_, index) => index !== id);
@@ -32,34 +34,31 @@ const clearAllTasks = () => {
     saveToStorage();
 };
 
-const AddTask = (name: string) => {
+const AddNewTask = (name: string) => {
     const isDone = false
     taskList.value.push({ name, isDone });
     saveToStorage();
 };
 
-const changeName = (newName: string, id: number) => {
+const changeTaskName = (newName: string, id: number) => {
     taskList.value[id].name = newName;
     saveToStorage();
 }
 
-const changeStatus = (id: number) => {
+const changeTaskStatus = (id: number) => {
     taskList.value[id].isDone = !taskList.value[id].isDone;
     saveToStorage();
-}
-
-const saveToStorage = () => {
-    localStorage.setItem("taskList", JSON.stringify(taskList.value));
 }
 
 </script>
 
 <template>
     <div class="todolist-container">
-        <TodolistHeader @addNewTask="AddTask" />
-        <TodolistContent :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName"
-            @changeStatus="changeStatus" />
-        <TodolistFooter class="todolist-footer" :count="taskList.length" @clearAllTasks="clearAllTasks()" />
+        <TodolistHeader @addNewTaskEvent="AddNewTask" />
+        <TodolistContent :tasksList="taskList" @deleteTaskEvent="(id: number) => deleteTask(id)"
+            @changeTaskNameEvent="changeTaskName" @changeTaskIsDoneStatusEvent="changeTaskStatus" />
+        <TodolistFooter class="todolist-footer" :tasks-remain-todo="taskList.filter((item) => !item.isDone).length"
+            @clearAllTasksEvent="clearAllTasks()" />
     </div>
 </template>
 

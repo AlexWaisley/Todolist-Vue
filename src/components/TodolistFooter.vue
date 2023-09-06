@@ -1,19 +1,19 @@
 <script setup lang="ts">
 
 const property = defineProps<{
-    count: Number,
+    tasksRemainTodo: Number,
 }>();
 
-const emits = defineEmits(['clearAllTasks']);
+const emits = defineEmits(['clearAllTasksEvent']);
 
 </script>
 
 <template>
     <div class="todolist-footer">
         <div class="tasks-count">
-            <span class="tasks-count-text">Remaining: {{ property.count }}</span>
+            <span class="tasks-count-text">Remaining: {{ property.tasksRemainTodo }}</span>
         </div>
-        <button type="button" class="clear-tasks-button" @click="emits('clearAllTasks')">Clear all</button>
+        <button type="button" class="clear-tasks-button" @click="emits('clearAllTasksEvent')">Clear all</button>
     </div>
 </template>
 

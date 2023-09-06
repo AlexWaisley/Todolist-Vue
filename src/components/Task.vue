@@ -4,36 +4,37 @@ import { ref, watch } from 'vue';
 
 const property = defineProps<{
     id: number,
-    lable: string,
-    status: boolean
+    name: string,
+    isDone: boolean
 }>();
 
 const isEdit = ref(false);
-const lable = ref(property.lable);
+const label = ref(property.name);
 
-const emits = defineEmits(['changeTaskName', 'changeTaskStatus', 'removeTask']);
+const emits = defineEmits(['changeNameEvent', 'changeIsDoneStatusEvent', 'removeEvent']);
 
 watch(property, () => {
-    lable.value = property.lable;
-
+    label.value = property.name;
 });
 
-
+const editDone = () => {
+    emits('changeNameEvent', label.value, property.id);
+    isEdit.value = false;
+}
 
 </script>
 
 <template>
     <div class="task">
-        <button type="button" class="default-button" @click="emits('changeTaskStatus', property.id)">
+        <button type="button" class="default-button" @click="emits('changeIsDoneStatusEvent', property.id)">
             <img v-if="isEdit" src="edit.svg" alt="Change status" />
-            <img v-else-if="property.status" src="done.svg" alt="Change status" />
+            <img v-else-if="property.isDone" src="done.svg" alt="Change status" />
             <img v-else src="notDone.svg" alt="Change status" />
         </button>
-        <input class="task-input" @focus="isEdit = true;" :disabled="status"
-            @blur="emits('changeTaskName', lable, property.id); isEdit = false;" :class="{ 'line-through': status }"
-            v-model="lable" />
+        <input class="task-input" @focus="isEdit = true;" :disabled="isDone" @blur="editDone"
+            :class="{ 'line-through': isDone }" v-model="label" />
 
-        <button type="button" class="default-button" @click="() => { emits('removeTask', property.id); }">
+        <button type="button" class="default-button" @click="emits('removeEvent', property.id);">
             <img src="delete.svg" alt="Delete">
         </button>
     </div>

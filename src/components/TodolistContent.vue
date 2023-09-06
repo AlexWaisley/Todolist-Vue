@@ -1,21 +1,18 @@
 <script setup lang="ts">
 import task from './Task.vue';
-import { watch } from 'vue';
 
-const property = defineProps(['list']);
+const property = defineProps(['tasksList']);
 
-const emits = defineEmits(['changeName', 'changeStatus', 'deleteTask']);
-
-watch(property.list, () => { });
+const emits = defineEmits(['changeTaskNameEvent', 'changeTaskIsDoneStatusEvent', 'deleteTaskEvent']);
 
 </script>
 
 <template>
     <div class="todolist-content">
-        <task v-for="(item, index) in   property.list" :id="index" :lable="item.name" :status="item.isDone"
-            @changeTaskName="(newName, id) => emits('changeName', newName, id)"
-            @remove-task="(id) => { emits('deleteTask', id); }"
-            @changeTaskStatus="(id: number) => { emits('changeStatus', id) }">
+        <task v-for="(item, index) in   property.tasksList" :id="index" :name="item.name" :is-done="item.isDone"
+            @changeNameEvent="(newName, id) => emits('changeTaskNameEvent', newName, id)"
+            @changeIsDoneStatusEvent="(id: number) => { emits('changeTaskIsDoneStatusEvent', id) }"
+            @removeEvent="(id) => { emits('deleteTaskEvent', id); }">
         </task>
     </div>
 </template>
