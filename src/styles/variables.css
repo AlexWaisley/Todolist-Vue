@@ -1,0 +1,23 @@
+:root {
+    /*App Color*/
+    --BG-COLOR: #F4F4F4;
+    --BG-TASK-COLOR: #BDBDBD;
+    --BTN-BG-COLOR: #949494;
+    --BTN-BG-COLOR-HOVER: #898989;
+    --BTN-CLEAR-ALL-COLOR: #D9D9D9;
+    --BTN-CLEAR-ALL-COLOR-HOVER: #d0d0d0;
+  
+    /*Font*/
+    --FF: 'Nunito', sans-serif;
+    --FS-S: 0.75rem;
+    --FS-M: 1rem;
+    --FS-L: 1.5rem;
+    --FS-XL: 2rem;
+    --FS-XXL: 3rem;
+  
+    /*Size*/
+    --APP-WIDTH:600px;
+    --APP-HEIGHT:390px;
+    --BTN-STNDRT-SIZE:60px;
+    --INPUT-WIDTH:350px;
+  }

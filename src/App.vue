@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import TopVue from './components/Top.vue';
-import MainVue from './components/Main.vue';
-import Bottom from './components/Bottom.vue';
+import TodolistHeader from './components/TodolistHeader.vue';
+import TodolistContent from './components/TodolistContent.vue';
+import TodolistFooter from './components/TodolistFooter.vue';
 
-const taskList = ref([{ name: '', isDone: false }]);
+import Task from './modules/Task.ts'
+
+const taskList = ref<Task[]>([{ name: "", isDone: false }]);
 
 taskList.value.pop();
 
@@ -21,7 +23,7 @@ loadFromStorage();
 window.addEventListener('storage', loadFromStorage);
 
 const deleteTask = (id: number) => {
-    taskList.value = taskList.value.filter((item, index) => index !== id);
+    taskList.value = taskList.value.filter((_, index) => index !== id);
     saveToStorage();
 };
 
@@ -53,63 +55,20 @@ const saveToStorage = () => {
 </script>
 
 <template>
-    <div class="app-container">
-        <header class="app-top">
-            <TopVue @addNewTask="AddTask" />
-        </header>
-        <main class="app-main">
-            <MainVue :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName"
-                @changeStatus="changeStatus" />
-        </main>
-        <footer class="app-bottom">
-            <Bottom :count="taskList.length" @clearAllTasks="clearAllTasks()"></Bottom>
-        </footer>
+    <div class="todolist-container">
+        <TodolistHeader @addNewTask="AddTask" />
+        <!-- <TodolistContent :list="taskList" @deleteTask="(id: number) => deleteTask(id)" @change-name="changeName"
+            @changeStatus="changeStatus" />
+        <TodolistFooter class="todolist-footer" :count="taskList.length" @clearAllTasks="clearAllTasks()" /> -->
     </div>
 </template>
 
 <style scoped>
-.app-container {
-    margin-top: 5px;
-    min-width: var(--APP-WIDTH);
-    min-height: var(--APP-HEIGHT);
-    max-width: 600px;
-    width: 20vw;
-    height: 80vh;
-    border-radius: 20px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+.todolist-container {
     background-color: var(--BG-COLOR);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 0 20px 0;
-    margin-bottom: 10px;
-}
-
-.app-top {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.app-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    width: 90%;
-}
-
-.app-main {
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    align-items: center;
-    gap: 15px;
-    min-width: 360px;
-    height: 100%;
-    min-height: 115px;
+    width: min(90%, 25rem);
+    height: min(90%, 30rem);
+    padding: 1rem;
+    border-radius: 10px;
 }
 </style>
